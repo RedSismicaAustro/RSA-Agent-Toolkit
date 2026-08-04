@@ -46,6 +46,8 @@ Los skills están en `.agents/skills/`. Se activan con comandos específicos del
 | `extraer_adr` | "extrae un ADR sobre [decisión]" | Documenta una decisión de arquitectura |
 | `sincronizar_toolkit` | "sincroniza el toolkit" | Copia `.agents/` y `AGENTS.md` a `git/` raíz |
 | `crear_transicion_tecnica` | "crea un archivo de transición técnica" o "genera la transición técnica" | Genera el documento de transición semántica en docs/progress/ |
+| `planning_guide` | "planifica [tarea]" o "crea un blueprint para [objetivo]" | Explora el codebase y genera un blueprint estructurado en docs/blueprints/ |
+| `execution_guide` | "ejecuta el blueprint [nombre]" o "implementa el plan" | Ejecuta un blueprint al pie de la letra sin improvisar ni desviarse del plan |
 
 ---
 
