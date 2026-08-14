@@ -2,17 +2,19 @@
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"planifica [tarea/feature]"**, **"diseña la arquitectura de [componente]"**, **"crea un blueprint para [objetivo]"**, o cualquier solicitud que requiera diseño técnico previo a la implementación.
 
-**Objetivo:** Explorar el codebase del proyecto, diseñar una solución técnica y producir un **blueprint** estructurado y sin ambigüedades que un agente ejecutor (típicamente Gemini Flash en Antigravity) pueda implementar al pie de la letra sin tomar decisiones de diseño propias.
-
-**Agentes destinatarios:** Claude (Open Code), Kimi, o cualquier agente con capacidad de razonamiento profundo y acceso al sistema de archivos.
+**Objetivo:** Explorar el codebase real del proyecto, razonar críticamente sobre las restricciones del entorno, y producir un **plan de implementación por fases** que sea correcto, completo y verificable. El plan debe ser lo suficientemente detallado para que un agente ejecutor lo implemente, pero lo suficientemente flexible para adaptarse a la realidad del sistema.
 
 ---
 
-## Variables del Skill
+## Filosofía de Planificación
 
-- **Directorio de salida de blueprints:** `<raíz_del_proyecto>/docs/blueprints/`
-- **Nombre del archivo:** `YYYY-MM-DD_<titulo-descriptivo>.md` (fecha local del sistema, título en kebab-case)
-- **Estado del proyecto (si existe):** `<raíz_del_proyecto>/docs/context/` o cualquier `SYSTEM_STATE.md` disponible
+> **El valor de un plan no está en su formato, sino en su profundidad de análisis.** Un plan con formato perfecto pero basado en suposiciones falsas es peor que inútil: es peligroso.
+
+### Prioridades (en orden)
+1. **Corrección técnica** — ¿El plan es factible con la infraestructura y código existentes?
+2. **Completitud** — ¿Cubre todos los flujos, edge cases y dependencias entre componentes?
+3. **Verificabilidad** — ¿Cada fase tiene un checkpoint concreto que demuestre que funciona?
+4. **Claridad** — ¿Un agente o desarrollador puede implementarlo sin ambigüedades?
 
 ---
 
@@ -23,8 +25,9 @@
 - Si el requerimiento es ambiguo, **pregunta antes de planificar**. No asumas.
 - Identifica: ¿Es una feature nueva? ¿Una refactorización? ¿Una corrección de bug? ¿Un cambio de arquitectura?
 
-### 2. Exploración del Codebase
-Antes de diseñar, **investiga el estado actual del proyecto**:
+### 2. Exploración Profunda del Codebase
+
+Antes de diseñar, **investiga el estado real del proyecto**. Este es el paso más importante y donde más tiempo debes invertir.
 
 1. **Lee la estructura de directorios** del proyecto para entender la organización.
 2. **Busca archivos de contexto existentes:**
@@ -32,129 +35,110 @@ Antes de diseñar, **investiga el estado actual del proyecto**:
    - `docs/blueprints/*.md` — para verificar si ya existe un blueprint relacionado.
    - ADRs en `decisiones/` o `adr/` — para respetar decisiones previas.
 3. **Lee los archivos de código relevantes** al requerimiento:
-   - Archivos que se van a modificar.
+   - Archivos que se van a modificar (lee el código fuente completo, no solo la estructura).
    - Archivos que dependen de los que se van a modificar.
-   - Archivos de configuración (dependencias, variables de entorno, etc.).
+   - Archivos de configuración (dependencias, variables de entorno, docker-compose, etc.).
 4. **Identifica restricciones técnicas:**
    - Lenguaje y versión del runtime.
    - Dependencias existentes (no introduzcas nuevas sin justificación).
    - Patrones de código ya establecidos en el proyecto (respétalos).
+   - Limitaciones de infraestructura (RAM, disco, red, firewalls, acceso remoto).
 
-> **REGLA:** No planifiques sin haber leído al menos la estructura del proyecto y los archivos directamente afectados. Un plan basado en suposiciones produce blueprints defectuosos.
+> **REGLA CRÍTICA:** No planifiques sin haber leído al menos la estructura del proyecto y los archivos directamente afectados. Un plan basado en suposiciones produce blueprints defectuosos.
 
-### 3. Diseño de la Solución
+### 3. Análisis Crítico (Antes de Escribir)
+
+Después de explorar, y **antes de escribir una sola línea del plan**, responde internamente estas preguntas:
+
+- **¿Qué dependencias nuevas se necesitan?** ¿Están declaradas en los archivos de requisitos actuales?
+- **¿Qué archivos de configuración se deben modificar?** (docker-compose, .env, config.json, etc.)
+- **¿Qué variables de entorno necesitan los servicios para comunicarse entre sí?**
+- **¿El plan introduce datos, esquemas o formatos nuevos?** Si es así, ¿están definidos explícitamente con tipos, nombres y ejemplos concretos? Un plan que dice "define el esquema" sin definirlo es inútil.
+- **¿El plan asume la existencia de algo que NO existe todavía?** (ej. un bucket de base de datos, un tópico MQTT, un token de acceso).
+- **¿El plan propone sustituir algo existente?** Si es así, ¿qué funcionalidad depende de lo que se va a sustituir? ¿Se rompe algo?
+- **¿Los checkpoints de verificación son realmente ejecutables?** ¿Incluyen los comandos exactos o son descripciones vagas?
+
+> **REGLA:** Si descubres que el plan tiene un vacío o una suposición no validada durante este análisis, resuélvelo antes de escribir. No lo dejes como "TODO" ni como "pendiente de definir".
+
+### 4. Diseño de la Solución
 - Evalúa las opciones técnicas viables.
 - Elige la que mejor se alinee con la arquitectura existente del proyecto.
-- Si la decisión es significativa (afecta a múltiples componentes o es difícil de revertir), documéntala en la sección `Decisiones de Diseño` del blueprint.
+- Si la decisión es significativa, documéntala con las alternativas evaluadas y la justificación.
 
-### 4. Escritura del Blueprint
-Crea el archivo en `<raíz_del_proyecto>/docs/blueprints/` usando **exactamente** el formato especificado a continuación. No omitas secciones. Si una sección no aplica, escribe "N/A" en lugar de eliminarla.
+### 5. Escritura del Plan de Implementación
 
-### 5. Confirmación al Usuario
-- Reporta la ruta del blueprint generado.
-- Resume los puntos clave del diseño en 3-5 líneas.
-- Indica si hay decisiones que requieran validación del usuario antes de proceder a la ejecución.
+Crea el archivo en `<raíz_del_proyecto>/docs/blueprints/` con el nombre `YYYY-MM-DD_<titulo-descriptivo>.md`.
 
----
-
-## Formato del Blueprint (Especificación Obligatoria)
-
-Todo blueprint generado por esta skill **DEBE** seguir exactamente esta estructura:
+**Estructura recomendada** (adaptar según la complejidad del proyecto):
 
 ```markdown
----
-blueprint: true
-titulo: "[Título descriptivo del objetivo]"
-proyecto: "[nombre_del_repositorio]"
-fecha: YYYY-MM-DD
-planificado_por: "[Nombre del agente/modelo que generó este blueprint]"
-estado: pendiente
----
+# Plan de Implementación: [Título descriptivo]
 
-# Blueprint: [Título descriptivo]
-
-## Objetivo
-[1-2 párrafos claros describiendo QUÉ se va a lograr y POR QUÉ. El agente ejecutor
-debe entender la meta sin contexto adicional.]
-
-## Contexto Técnico
-[Resumen del estado actual del código relevante a este cambio. Incluir:
-- Archivos existentes que se modificarán y su rol actual.
-- Dependencias relevantes.
-- Restricciones técnicas descubiertas durante la exploración.]
-
-## Decisiones de Diseño
-[Solo si aplica. Documentar las alternativas evaluadas y la justificación de la
-elección. Si no hay decisiones significativas, escribir "N/A".]
-
-## Pre-condiciones
-[Lista de verificación que el agente ejecutor DEBE confirmar antes de empezar.
-Usar checkboxes.]
-
-- [ ] Verificar que [dependencia/herramienta] está disponible
-- [ ] Verificar que [archivo/directorio] existe en [ruta exacta]
-- [ ] Verificar que [servicio] está en estado [esperado]
-
-## Pasos de Implementación
-
-### Paso 1: [Título descriptivo de la acción]
-**Acción:** [Crear archivo | Modificar archivo | Eliminar archivo | Ejecutar comando]
-**Ruta:** `[ruta/exacta/al/archivo]`
-**Descripción:** [Explicación breve de qué hace este paso y por qué]
-
-[Incluir el contenido exacto o el diff a aplicar en un bloque de código con
-el lenguaje correcto:]
-
-\```python
-# Código exacto a escribir o cambio a realizar
-\```
-
-[Si es una modificación parcial, usar formato diff:]
-
-\```diff
-- línea_original_a_reemplazar
-+ línea_nueva_que_la_sustituye
-\```
+**Fecha**: YYYY-MM-DD
+**Proyecto**: [nombre_del_repositorio]
+**Objetivo**: [1-2 párrafos describiendo QUÉ se va a lograr y POR QUÉ]
 
 ---
 
-### Paso 2: [Título descriptivo de la acción]
-...
+## Prerequisitos
+[Condiciones que deben cumplirse antes de iniciar. Incluir configuraciones
+de infraestructura, herramientas requeridas, y verificaciones del entorno.]
 
-[Repetir para cada paso. Cada paso debe ser atómico: una sola acción clara.]
+## Fase N: [Título de la fase]
+
+**Objetivo**: [Qué se logra al completar esta fase]
+
+### [Esquemas / Estructuras de datos / Payloads definidos]
+[Si la fase introduce datos nuevos, definirlos aquí con tablas, ejemplos JSON,
+o diagramas. NUNCA dejar un esquema sin definir.]
+
+### Acciones
+1. [Acción concreta con ruta de archivo y descripción de cambio]
+2. [Siguiente acción...]
+
+### Comprobación (Checkpoint)
+[Pasos verificables para confirmar que la fase funciona.
+Incluir comandos exactos cuando sea posible.]
 
 ---
 
-## Verificación
-[Lista de pasos que el agente ejecutor debe realizar para confirmar que la
-implementación fue exitosa.]
+[Repetir para cada fase]
 
-- [ ] Ejecutar `[comando_de_test]` → resultado esperado: [descripción]
-- [ ] Verificar que [archivo] contiene [contenido esperado]
-- [ ] Confirmar que [funcionalidad] opera correctamente
+## Decisiones Pendientes
+[Si hay decisiones que requieren input del usuario, listarlas aquí
+con las opciones evaluadas.]
 
-## Notas para el Ejecutor
-[Advertencias, edge cases, o información que el agente ejecutor necesita saber
-para evitar errores. Si no hay notas especiales, escribir "N/A".]
-
-## Archivos Afectados
-[Lista completa de todos los archivos que este blueprint crea, modifica o elimina.
-Esto permite al ejecutor verificar el alcance antes de empezar.]
-
-| Archivo | Acción | Paso |
-|:---|:---|:---|
-| `ruta/al/archivo1.py` | Crear | Paso 1 |
-| `ruta/al/archivo2.md` | Modificar | Paso 3 |
-| `ruta/al/archivo3.cfg` | Eliminar | Paso 5 |
+## Diagrama de Arquitectura
+[Si aplica, incluir un diagrama ASCII o Mermaid de la visión general.]
 ```
 
+### 6. Auto-Revisión del Plan
+
+Antes de presentar el plan al usuario, revísalo contra esta checklist:
+
+- [ ] ¿Leí el código fuente de todos los archivos que el plan propone modificar?
+- [ ] ¿Los esquemas de datos están definidos explícitamente (tipos, nombres, ejemplos)?
+- [ ] ¿Los archivos de configuración afectados están identificados con las variables necesarias?
+- [ ] ¿Las dependencias nuevas están listadas con versiones?
+- [ ] ¿Los checkpoints incluyen comandos o pasos concretos (no descripciones vagas)?
+- [ ] ¿El plan contradice alguna decisión previa documentada en ADRs o contextos?
+- [ ] ¿El plan es factible con la infraestructura existente (RAM, disco, red, permisos)?
+
+Si algún punto falla, corrige el plan antes de entregarlo.
+
+### 7. Confirmación al Usuario
+- Reporta la ruta del blueprint generado.
+- Resume los puntos clave del diseño en 3-5 líneas.
+- Indica si hay decisiones que requieran validación del usuario antes de proceder.
+
 ---
 
-## Reglas de Calidad del Blueprint
+## Reglas de Calidad
 
-1. **Cada paso debe ser autocontenido.** El ejecutor no debe necesitar inferir qué código escribir. Si el paso dice "Crear archivo", el blueprint DEBE incluir el contenido completo del archivo.
-2. **Las rutas deben ser exactas y relativas** a la raíz del proyecto. Nunca uses rutas ambiguas como "el archivo de configuración".
-3. **Los diffs deben ser aplicables.** Si usas formato diff, incluye suficiente contexto para identificar la ubicación exacta del cambio.
-4. **No dejes decisiones para el ejecutor.** Frases como "elige la mejor opción" o "implementa según convenga" están **prohibidas**. Toda decisión de diseño se toma en la planificación.
-5. **Ordena los pasos por dependencia.** Si el Paso 3 depende del Paso 1, el Paso 1 va primero. Nunca asumas ejecución paralela.
-6. **Los comandos de terminal deben ser copy-paste.** Incluye flags, rutas y argumentos completos. No uses variables de entorno que el ejecutor no pueda resolver.
+1. **Sustancia sobre forma.** El formato del plan se adapta a la complejidad del problema. No fuerces secciones innecesarias. Un plan de 3 fases no necesita la misma estructura que uno de 10.
+2. **Las rutas deben ser exactas y relativas** a la raíz del proyecto.
+3. **No dejes decisiones para el ejecutor.** Frases como "elige la mejor opción" o "implementa según convenga" están **prohibidas**. Toda decisión de diseño se toma en la planificación.
+4. **Los datos concretos valen más que las descripciones.** En lugar de "Define el esquema de la base de datos", incluye la tabla con campos, tipos y descripciones. En lugar de "Crea un payload JSON", incluye el JSON de ejemplo completo.
+5. **Ordena las fases por dependencia.** Si la Fase 3 depende de la Fase 1, la Fase 1 va primero.
+6. **Los comandos de terminal deben ser copy-paste.** Incluye flags, rutas y argumentos completos.
+7. **Si el plan propone sustituir un componente existente, verifica qué depende de él.** Lee el código que lo usa antes de proponer eliminarlo.

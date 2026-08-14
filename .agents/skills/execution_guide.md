@@ -1,169 +1,103 @@
-# Skill: Ejecución de Blueprint (Agent Executor)
+# Skill: Ejecución de Plan de Implementación (Agent Executor)
 
-**Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"ejecuta el blueprint [nombre]"**, **"implementa el plan en docs/blueprints/"**, **"aplica el blueprint"**, o cualquier solicitud que requiera implementar un blueprint previamente generado por un agente planificador.
+**Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"ejecuta el blueprint [nombre]"**, **"implementa el plan en docs/blueprints/"**, **"aplica el blueprint"**, o cualquier solicitud que requiera implementar un plan previamente generado por un agente planificador.
 
-**Objetivo:** Leer un blueprint generado por un agente planificador (Claude, Kimi, u otro) e implementar **cada paso exactamente como está especificado**, sin tomar decisiones de diseño propias, sin improvisar, y sin desviarse del plan.
-
-**Agentes destinatarios:** Gemini Flash (Antigravity IDE) u otro agente de ejecución rápida.
+**Objetivo:** Leer un plan de implementación generado por un agente planificador e implementar cada fase verificando contra el estado real del código. El ejecutor respeta el plan como guía principal, pero tiene la responsabilidad de detectar y reportar problemas antes de que causen daño.
 
 ---
 
-## Variables del Skill
+## Filosofía de Ejecución
 
-- **Directorio de blueprints:** `<raíz_del_proyecto>/docs/blueprints/`
-- **Patrón de archivo:** `YYYY-MM-DD_<titulo-descriptivo>.md`
+> **El plan es la guía, pero el código real es la fuente de verdad.** Si el plan dice "modifica la función X en la línea 50" y la función X está en la línea 80, adapta la ejecución al estado real del archivo. Si el plan dice "elimina el componente Y" pero descubres que otros módulos dependen de Y y el plan no lo contempla, detente y reporta.
+
+### Rol del Ejecutor
+- **Sí:** Implementar lo que el plan describe, adaptar líneas/rutas a la realidad del código, reportar discrepancias.
+- **No:** Tomar decisiones de arquitectura o diseño que el plan no contempla, agregar funcionalidad no solicitada, ignorar errores para avanzar.
 
 ---
 
-## Reglas Críticas de Ejecución
+## Reglas de Ejecución
 
-> Estas reglas son **inviolables**. Si entran en conflicto con tu comportamiento por defecto, las reglas ganan.
-
-1. **El blueprint es la FUENTE DE VERDAD.** No tomes decisiones de diseño propias. No "mejores" el plan. No agregues funcionalidad que no está en el blueprint.
-2. **Ejecuta los pasos en el orden especificado.** No reordenes, no paralelices, no omitas pasos.
-3. **Si encuentras una discrepancia** entre el blueprint y el estado actual del código (un archivo que debería existir pero no existe, una dependencia faltante, una estructura diferente a la esperada), **DETENTE** y reporta la discrepancia al usuario. No intentes resolver el conflicto por tu cuenta.
-4. **Si un paso es ambiguo** (no tiene código exacto, usa frases vagas como "implementa según convenga"), **DETENTE** y pide clarificación al usuario. No improvises.
-5. **No elimines código existente** que no esté explícitamente marcado para eliminación en el blueprint.
-6. **No modifiques archivos** que no estén listados en la sección `Archivos Afectados` del blueprint.
-7. **Preserva comentarios y docstrings existentes** en archivos que se modifican, a menos que el blueprint indique lo contrario.
+1. **El plan es la guía principal.** No tomes decisiones de diseño propias. No "mejores" el plan con funcionalidad extra.
+2. **Ejecuta las fases en el orden especificado.** No reordenes, no omitas fases.
+3. **Valida antes de actuar.** Antes de modificar un archivo, léelo para confirmar que el estado actual es el que el plan asume. Si difiere, reporta la discrepancia.
+4. **Si encuentras una discrepancia menor** (cambio de número de línea, variable renombrada, indentación diferente), adáptate al estado real del archivo y continúa. Documenta la adaptación.
+5. **Si encuentras una discrepancia mayor** (un archivo que no existe, una dependencia faltante, un componente que el plan asume pero que funciona diferente a lo descrito), **DETENTE** y reporta al usuario. No intentes resolver conflictos de diseño por tu cuenta.
+6. **Si un paso del plan es ambiguo** (no tiene código concreto, usa frases vagas como "implementa según convenga"), **DETENTE** y pide clarificación. No improvises.
+7. **Preserva comentarios y docstrings existentes** en archivos que se modifican, a menos que el plan indique lo contrario.
+8. **No elimines código existente** que no esté explícitamente marcado para eliminación en el plan.
 
 ---
 
 ## Pasos de Ejecución
 
-### 1. Localización del Blueprint
+### 1. Localización del Plan
 - Si el usuario especifica un archivo concreto, léelo directamente.
 - Si el usuario dice "ejecuta el último blueprint" o similar, lista los archivos en `docs/blueprints/` y selecciona el más reciente por fecha en el nombre del archivo.
 - Si no hay blueprints o el directorio no existe, informa al usuario y detente.
 
-### 2. Lectura y Comprensión del Blueprint
-- Lee el blueprint completo **antes de ejecutar cualquier paso**.
-- Verifica que el blueprint tiene el frontmatter YAML con `blueprint: true`.
+### 2. Lectura y Comprensión del Plan
+- Lee el plan completo **antes de ejecutar cualquier paso**.
 - Identifica:
-  - **Objetivo:** ¿Qué se busca lograr?
-  - **Número total de pasos.**
-  - **Archivos afectados:** Lista completa de la sección `Archivos Afectados`.
-- Reporta al usuario un resumen breve: *"Blueprint: [título], [N] pasos, [M] archivos afectados. Procedo con la ejecución."*
+  - **Objetivo general:** ¿Qué se busca lograr?
+  - **Número de fases y sus dependencias.**
+  - **Archivos que se crearán o modificarán.**
+  - **Prerequisitos** que deben verificarse antes de empezar.
+- Reporta al usuario un resumen breve: *"Plan: [título], [N] fases. Procedo con la ejecución."*
 
-### 3. Verificación de Pre-condiciones
-- Ejecuta **cada pre-condición** listada en la sección `Pre-condiciones` del blueprint.
-- Si alguna pre-condición falla, **DETENTE** y reporta cuál falló y por qué.
-- No procedas con la implementación hasta que todas las pre-condiciones estén verificadas.
-- Marca cada pre-condición verificada con `[x]` en el blueprint.
+### 3. Verificación de Prerequisitos
+- Si el plan tiene una sección de prerequisitos o pre-condiciones, verifica **cada una**.
+- Si algún prerequisito no se puede verificar porque requiere acceso a un servidor remoto (restricción SSHFS), reporta al usuario los comandos que debe ejecutar manualmente y espera confirmación.
+- No procedas con la implementación hasta que los prerequisitos estén verificados.
 
-### 4. Ejecución Paso a Paso
-Para cada paso en la sección `Pasos de Implementación`:
+### 4. Ejecución Fase por Fase
 
-1. **Anuncia** el paso que vas a ejecutar: *"Ejecutando Paso N: [título del paso]"*.
-2. **Verifica** que la ruta del archivo especificada es accesible.
-3. **Ejecuta la acción** exactamente como está descrita:
-   - **Crear archivo:** Escribe el contenido exacto del bloque de código.
-   - **Modificar archivo:** Aplica el diff o el reemplazo especificado. Verifica que el contenido original existe antes de reemplazar.
-   - **Eliminar archivo:** Confirma que el archivo existe y elimínalo.
-   - **Ejecutar comando:** Ejecuta el comando exacto como está escrito.
-4. **Verifica** que la acción se completó correctamente.
-5. **Continúa** al siguiente paso.
+Para cada fase del plan:
 
-> **Si algo falla en un paso:** Reporta el error, indica en qué paso ocurrió, y **espera instrucciones del usuario** antes de continuar.
+1. **Anuncia** la fase que vas a ejecutar.
+2. **Lee el estado actual** de todos los archivos que la fase afecta. Esto es obligatorio para detectar discrepancias temprano.
+3. **Implementa cada acción** de la fase:
+   - Si el plan incluye código o configuración exacta, úsala como referencia principal.
+   - Si el plan describe una modificación pero el archivo real difiere en detalles menores (líneas, indentación), adapta el cambio al estado real del archivo.
+   - Si el plan propone crear un archivo nuevo, verifica que la ruta y las dependencias (imports, variables de entorno) son coherentes con el proyecto.
+4. **Ejecuta el checkpoint de comprobación** de la fase antes de avanzar a la siguiente.
+   - Si el checkpoint requiere ejecutar comandos en un servidor remoto (restricción SSHFS), proporciona los comandos al usuario y espera el resultado.
+   - Si el checkpoint falla, reporta el error con contexto y espera instrucciones.
+5. **Avanza** a la siguiente fase solo cuando el checkpoint anterior pasa.
 
-### 5. Verificación Final
-- Ejecuta cada item de la sección `Verificación` del blueprint.
-- Reporta los resultados de cada verificación.
-- Marca cada verificación completada con `[x]`.
+### 5. Reporte Final
 
-### 6. Actualización del Estado del Blueprint
-- Modifica el frontmatter del blueprint: cambia `estado: pendiente` → `estado: completado`.
-- Agrega un campo `ejecutado_por:` con tu nombre/modelo y la fecha.
-- Agrega un campo `fecha_ejecucion:` con la fecha actual.
-
-### 7. Reporte Final
-Imprime un resumen estructurado:
+Al completar todas las fases (o al detenerte por un error), presenta un resumen:
 
 ```markdown
 ## Reporte de Ejecución
 
-**Blueprint:** [título]
-**Pasos ejecutados:** [N/total]
+**Plan:** [título]
+**Fases ejecutadas:** [N/total]
 **Archivos creados:** [lista]
 **Archivos modificados:** [lista]
-**Archivos eliminados:** [lista]
-**Verificaciones pasadas:** [N/total]
-**Desviaciones del plan:** [Ninguna | descripción]
-**Estado:** Completado / Completado con advertencias / Fallido en Paso N
-```
-
----
-
-## Formato del Blueprint Esperado (Referencia)
-
-Los blueprints generados por el agente planificador siguen esta estructura. Úsala como referencia para saber dónde encontrar cada sección:
-
-```markdown
----
-blueprint: true
-titulo: "[Título descriptivo del objetivo]"
-proyecto: "[nombre_del_repositorio]"
-fecha: YYYY-MM-DD
-planificado_por: "[Nombre del agente/modelo que generó este blueprint]"
-estado: pendiente
----
-
-# Blueprint: [Título descriptivo]
-
-## Objetivo
-[Descripción de la meta]
-
-## Contexto Técnico
-[Estado actual del código relevante]
-
-## Decisiones de Diseño
-[Alternativas evaluadas y justificación — solo lectura, no modificar]
-
-## Pre-condiciones
-- [ ] [Condición a verificar antes de ejecutar]
-
-## Pasos de Implementación
-
-### Paso 1: [Título]
-**Acción:** [Crear | Modificar | Eliminar | Ejecutar comando]
-**Ruta:** `[ruta/exacta]`
-**Descripción:** [Qué y por qué]
-
-\```lenguaje
-# Código exacto
-\```
-
----
-
-### Paso 2: [Título]
-...
-
----
-
-## Verificación
-- [ ] [Paso de verificación]
-
-## Notas para el Ejecutor
-[Advertencias y edge cases]
-
-## Archivos Afectados
-| Archivo | Acción | Paso |
-|:---|:---|:---|
-| `ruta/archivo` | Crear/Modificar/Eliminar | Paso N |
+**Adaptaciones menores:** [lista de discrepancias menores resueltas, o "Ninguna"]
+**Checkpoints pasados:** [N/total]
+**Estado:** Completado / Completado con adaptaciones / Detenido en Fase N
 ```
 
 ---
 
 ## Manejo de Situaciones Especiales
 
-### El blueprint tiene errores evidentes
-Si detectas un error claro en el blueprint (una ruta imposible, sintaxis inválida en el código, un comando que no existe), **reporta el error pero no lo corrijas por tu cuenta**. El blueprint fue generado por un agente planificador con más contexto de diseño que tú. Deja que el usuario decida cómo proceder.
+### El plan tiene un error técnico evidente
+Si detectas un error claro en el plan (una ruta imposible, sintaxis inválida en el código, un comando que no existe, un componente que se elimina pero tiene dependientes), **reporta el error específico y propón la corrección**, pero espera confirmación del usuario antes de aplicarla. No apliques cambios que contradigan el diseño del plan sin aprobación.
 
-### El blueprint es demasiado vago
-Si un paso dice algo como "implementa la lógica de autenticación" sin código concreto, eso es un defecto del blueprint, no algo que debas resolver. Reporta al usuario: *"El Paso N no incluye código concreto. Necesito que el planificador detalle este paso o que me des instrucciones específicas."*
+### El plan está desactualizado
+Si el código ha cambiado desde que se generó el plan (funciones renombradas, archivos movidos, estructura diferente), trata las discrepancias como oportunidades para adaptar:
+- **Cambios menores** (líneas, nombres): Adapta y documenta.
+- **Cambios mayores** (archivos eliminados, arquitectura diferente): Detente y reporta.
 
 ### El usuario pide cambios durante la ejecución
-Si el usuario solicita una desviación del blueprint mientras lo ejecutas:
-1. Ejecuta el cambio solicitado por el usuario (el usuario tiene prioridad sobre el blueprint).
+Si el usuario solicita una desviación del plan:
+1. Ejecuta el cambio solicitado (el usuario tiene prioridad sobre el plan).
 2. Documenta la desviación en el reporte final.
-3. Continúa con el siguiente paso del blueprint.
+3. Continúa con la siguiente fase del plan.
+
+### El plan tiene fases que se ejecutan en servidores remotos
+Si el directorio de trabajo está bajo la restricción SSHFS (`montajes/**`), recuerda que no puedes ejecutar comandos de terminal de forma autónoma. Proporciona los comandos al usuario en bloques de código Bash y espera la salida antes de continuar.
