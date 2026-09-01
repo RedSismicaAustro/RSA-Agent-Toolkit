@@ -48,6 +48,7 @@ Los skills están en `.agents/skills/`. Se activan con comandos específicos del
 | `crear_transicion_tecnica` | "crea un archivo de transición técnica" o "genera la transición técnica" | Genera el documento de transición semántica en docs/progress/ |
 | `planning_guide` | "planifica [tarea]" o "crea un blueprint para [objetivo]" | Explora el codebase y genera un blueprint estructurado en docs/blueprints/ |
 | `execution_guide` | "ejecuta el blueprint [nombre]" o "implementa el plan" | Ejecuta un blueprint al pie de la letra sin improvisar ni desviarse del plan |
+| `diagnostico_tecnico` | "genera un diagnóstico técnico de [problema]" o "diagnostica [situación]" | Documenta errores, anomalías o situaciones técnicas en docs/analysis/ con indexación federada |
 
 ---
 
