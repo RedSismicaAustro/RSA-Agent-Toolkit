@@ -8,7 +8,8 @@
 
 ## Variables del Skill
 
-- **Directorio ADRs:** `rsa/RSA-Metodologias/decisiones/`
+- **Directorio ADRs:** `rsa/RSA-Metodologias/decisiones/`, `<raiz_del_proyecto>/docs/adr/`
+
 - **Índice maestro:** `rsa/RSA-Metodologias/indice/indice_tematico.md`
 
 ---
@@ -24,7 +25,7 @@
   - **Consecuencias:** ¿Qué implica esta decisión a futuro?
 
 ### 2. Asignación de Número Secuencial
-- Lista los archivos existentes en `rsa/RSA-Metodologias/decisiones/`.
+- Lista los archivos existentes en el Directorio ADRs.
 - El siguiente número es el mayor existente + 1 (formato `NNN` con ceros a la izquierda, ej: `001`, `002`).
 - Si no hay ADRs previos, empieza en `001`.
 
