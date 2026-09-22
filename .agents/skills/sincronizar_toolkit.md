@@ -30,7 +30,7 @@
 ### 3. Copia de Skills
 - Lee cada archivo en `rsa/RSA-Agent-Toolkit/.agents/skills/`.
 - Sobrescribe el archivo correspondiente en `git/.agents/skills/`.
-- Archivos a copiar: `volcado_bitacora.md`, `consulta_historica.md`, `generar_contexto.md`, `extraer_adr.md`, `sincronizar_toolkit.md`.
+- Archivos a copiar: todos los archivos `.md` en `.agents/skills/` (`volcado_bitacora.md`, `consulta_historica.md`, `generar_contexto.md`, `extraer_adr.md`, `sincronizar_toolkit.md`, `crear_transicion_tecnica.md`, `planning_guide.md`, `execution_guide.md`, `diagnostico_tecnico.md`, `despliegue_release.md`).
 
 ### 4. Copia de AGENTS.md
 - Lee `rsa/RSA-Agent-Toolkit/AGENTS.md`.

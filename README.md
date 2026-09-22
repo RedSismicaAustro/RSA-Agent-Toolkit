@@ -20,7 +20,8 @@ RSA-Agent-Toolkit/
 │       ├── consulta_historica.md# Consultar conocimiento pasado
 │       ├── generar_contexto.md  # Generar documentación de contexto técnico
 │       ├── extraer_adr.md       # Extraer Architecture Decision Records
-│       └── sincronizar_toolkit.md # Copiar .agents/ y AGENTS.md a git/
+│       ├── sincronizar_toolkit.md # Copiar .agents/ y AGENTS.md a git/
+│       └── despliegue_release.md # Asistente interactivo de release y despliegue
 ├── plantillas/
 │   ├── AGENTS.md                # Plantilla genérica para proyectos RSA
 │   ├── AGENTS_WSL.md            # Variante para WSL
