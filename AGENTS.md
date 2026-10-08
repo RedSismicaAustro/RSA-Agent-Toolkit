@@ -17,13 +17,15 @@ Respeta esa restricción: no modifiques ni busques archivos fuera de esa ruta a 
 
 ## 📂 Estructura del Exocortex RSA
 
-El conocimiento está distribuido en tres repositorios:
+El conocimiento y desarrollo tecnológico está distribuido entre los repositorios institucionales y las prácticas preprofesionales:
 
-| Repositorio | Cuenta | Contenido |
-|-------------|--------|-----------|
-| `RSA-Agent-Toolkit` | rsa/ | Skills, reglas y plantillas del agente |
+| Repositorio | Cuenta / Org | Contenido |
+|-------------|--------------|-----------|
+| `RSA-Agent-Toolkit` | rsa/ | Skills, reglas y plantillas transversales del agente |
 | `RSA-Metodologias` | rsa/ | Índice federado, ADRs y guías institucionales |
 | `RSA-Bitacora-LLM-{Nombre}` | institucional/ | Bitácoras personales de sesiones |
+| `RSA-PPP-Toolkit` | rsa/ | Gobernanza PPP, plantillas maestras, planificaciones históricas y skills de pasantías |
+| `ppp-*` | ppp/ (RSA-PPP) | Repositorios individuales de proyectos de prácticas preprofesionales |
 
 ### Rutas clave en el workspace `git/`
 
@@ -31,12 +33,15 @@ El conocimiento está distribuido en tres repositorios:
 - **Catálogo de contribuidores**: `rsa/RSA-Metodologias/indice/catalogo_contribuidores.md`
 - **Bitácora de Milton**: `institucional/RSA-Bitacora-LLM-Milton/sesiones/`
 - **ADRs**: `rsa/RSA-Metodologias/decisiones/`
+- **Toolkit PPP**: `rsa/RSA-PPP-Toolkit/`
+- **Planificaciones PPP**: `rsa/RSA-PPP-Toolkit/planificaciones/`
+- **Repositorios de Pasantes**: `ppp/`
 
 ---
 
 ## ⚙️ Habilidades y Flujos de Trabajo (Skills)
 
-Los skills están en `.agents/skills/`. Se activan con comandos específicos del usuario:
+Los skills globales están en `.agents/skills/`. Además, skills especializadas de pasantías se alojan en `rsa/RSA-PPP-Toolkit/.agents/skills/`. Se activan con comandos específicos del usuario:
 
 | Skill | Activación | Descripción |
 |-------|-----------|-------------|
@@ -50,6 +55,7 @@ Los skills están en `.agents/skills/`. Se activan con comandos específicos del
 | `execution_guide` | "ejecuta el blueprint [nombre]" o "implementa el plan" | Ejecuta un blueprint al pie de la letra sin improvisar ni desviarse del plan |
 | `diagnostico_tecnico` | "genera un diagnóstico técnico de [problema]" o "diagnostica [situación]" | Documenta errores, anomalías o situaciones técnicas en docs/analysis/ con indexación federada |
 | `despliegue_release` | "prepara el release" o "despliega a producción" | Guía interactiva de SemVer, changelog y comandos copy-paste para DEV y SSH |
+| `desplegar_repositorio_ppp` | "despliega el repositorio para [planificacion]" o "inicializa el repositorio de pasantia" | Guía interactiva para crear, configurar e inicializar repositorios de pasantía en RSA-PPP desde RSA-PPP-Toolkit |
 
 ---
 
