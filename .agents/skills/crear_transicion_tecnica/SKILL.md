@@ -1,3 +1,7 @@
+---
+name: crear_transicion_tecnica
+description: "Genera un documento de transicion semantica en docs/progress/ para transferir contexto entre agentes."
+---
 # Skill: Crear Archivo de Transición Técnica
 
 **Descripción de Activación:** Ejecuta este flujo ÚNICAMENTE cuando el usuario indique: **"crea un archivo de transición técnica"**, **"genera la transición técnica de esta sesión"** o comandos con intenciones equivalentes.

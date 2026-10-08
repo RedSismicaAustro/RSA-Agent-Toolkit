@@ -1,3 +1,7 @@
+---
+name: consulta_historica
+description: "Enruta y responde preguntas sobre el historial y contexto de proyectos a traves del indice tematico federado."
+---
 # Skill: Consulta Histórica de Bitácoras
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario realice preguntas sobre el estado pasado de un proyecto, resúmenes de períodos anteriores, o busque información sobre temas específicos (ej. "¿qué hicimos la semana pasada?", "busca información sobre mqtt").

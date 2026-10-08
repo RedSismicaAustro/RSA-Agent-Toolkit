@@ -1,3 +1,7 @@
+---
+name: sincronizar_toolkit
+description: "Sincroniza .agents/ y AGENTS.md desde RSA-Agent-Toolkit hacia la raiz git/ del workspace."
+---
 # Skill: Sincronizar Toolkit al Workspace Raíz
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"sincroniza el toolkit"**, **"actualiza las reglas del agente"** o **"actualiza el AGENTS.md"**.
@@ -28,9 +32,9 @@
 - Archivos a copiar: `commits.md`, `restriccion_sshfs.md`, `idioma.md`.
 
 ### 3. Copia de Skills
-- Lee cada archivo en `rsa/RSA-Agent-Toolkit/.agents/skills/`.
-- Sobrescribe el archivo correspondiente en `git/.agents/skills/`.
-- Archivos a copiar: todos los archivos `.md` en `.agents/skills/` (`volcado_bitacora.md`, `consulta_historica.md`, `generar_contexto.md`, `extraer_adr.md`, `sincronizar_toolkit.md`, `crear_transicion_tecnica.md`, `planning_guide.md`, `execution_guide.md`, `diagnostico_tecnico.md`, `despliegue_release.md`).
+- Copia recursivamente cada subdirectorio de skill en `rsa/RSA-Agent-Toolkit/.agents/skills/` hacia `git/.agents/skills/`.
+- Cada paquete de skill contiene su archivo `SKILL.md` (con frontmatter YAML) y cualquier recurso adicional (`scripts/`, `templates/`, etc.).
+- Skills a copiar: `volcado_bitacora/`, `consulta_historica/`, `generar_contexto/`, `extraer_adr/`, `sincronizar_toolkit/`, `crear_transicion_tecnica/`, `planning_guide/`, `execution_guide/`, `diagnostico_tecnico/`, `despliegue_release/`.
 
 ### 4. Copia de AGENTS.md
 - Lee `rsa/RSA-Agent-Toolkit/AGENTS.md`.

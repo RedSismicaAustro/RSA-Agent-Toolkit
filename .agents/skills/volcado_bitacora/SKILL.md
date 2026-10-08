@@ -1,3 +1,7 @@
+---
+name: volcado_bitacora
+description: "Guarda el registro tecnico de la sesion actual en la bitacora personal e indexa temas en el indice federado."
+---
 # Skill: Volcado de Bitácora RSA
 
 **Descripción de Activación:** Ejecuta este flujo ÚNICAMENTE cuando el usuario indique: **"ejecuta el volcado de bitácora"** o **"actualiza la bitácora"**.

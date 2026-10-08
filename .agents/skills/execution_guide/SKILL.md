@@ -1,3 +1,7 @@
+---
+name: execution_guide
+description: "Ejecuta un blueprint al pie de la letra paso a paso sin improvisar ni desviarse del plan."
+---
 # Skill: Ejecución de Plan de Implementación (Agent Executor)
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"ejecuta el blueprint [nombre]"**, **"implementa el plan en docs/blueprints/"**, **"aplica el blueprint"**, o cualquier solicitud que requiera implementar un plan previamente generado por un agente planificador.

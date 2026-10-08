@@ -1,3 +1,7 @@
+---
+name: generar_contexto
+description: "Genera documentacion de contexto tecnico para modulos, librerias o subsistemas del proyecto."
+---
 # Skill: Generar Contexto Técnico de Archivo/Componente
 
 **Descripción de Activación:** Ejecuta este flujo ÚNICAMENTE cuando el usuario indique: **"genera el contexto de [nombre_archivo.ext]"** o variantes similares.

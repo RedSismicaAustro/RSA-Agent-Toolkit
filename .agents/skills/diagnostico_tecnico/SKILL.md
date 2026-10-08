@@ -1,3 +1,7 @@
+---
+name: diagnostico_tecnico
+description: "Documenta errores, anomalias o fallas tecnicas en docs/analysis/ con indexacion federada."
+---
 # Skill: Diagnóstico Técnico
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"genera un diagnóstico técnico de [problema/componente/sistema]"**, **"diagnostica [situación]"**, o cuando se necesite documentar formalmente errores, anomalías o situaciones técnicas para resolverlas posteriormente.

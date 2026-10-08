@@ -1,3 +1,7 @@
+---
+name: extraer_adr
+description: "Documenta formalmente decisiones de arquitectura en formato ADR y actualiza el indice tematico."
+---
 # Skill: Extraer Architecture Decision Record (ADR)
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"extrae un ADR de [tema/sesión]"**, **"crea un ADR sobre [decisión]"**, o cuando el usuario solicite documentar una decisión de arquitectura importante.

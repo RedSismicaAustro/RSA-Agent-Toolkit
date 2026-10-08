@@ -1,3 +1,7 @@
+---
+name: planning_guide
+description: "Explora el codebase y genera un blueprint estructurado de planificacion en docs/blueprints/."
+---
 # Skill: Planificación de Arquitectura (Agent Planner)
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"planifica [tarea/feature]"**, **"diseña la arquitectura de [componente]"**, **"crea un blueprint para [objetivo]"**, o cualquier solicitud que requiera diseño técnico previo a la implementación.

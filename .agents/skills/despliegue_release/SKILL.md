@@ -1,3 +1,7 @@
+---
+name: despliegue_release
+description: "Guia interactiva para versionado SemVer, changelog y comandos de despliegue a DEV y produccion."
+---
 # Skill: Asistente Interactivo de Release y Despliegue RSA
 
 **Descripción de Activación:** Ejecuta este flujo cuando el usuario indique: **"prepara el release"**, **"orquesta el despliegue"**, **"despliega a producción"**, **"inicia el protocolo de despliegue"**, **"asiste en el release de la versión"** o frases con intención equivalente.
