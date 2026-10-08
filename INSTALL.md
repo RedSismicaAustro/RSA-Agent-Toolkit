@@ -10,7 +10,9 @@ Esta guía explica cómo integrar el toolkit en tu workspace para que el agente 
 - Repos clonados bajo `git/`:
   - `git/rsa/RSA-Agent-Toolkit/` (este repo)
   - `git/rsa/RSA-Metodologias/`
+  - `git/rsa/RSA-PPP-Toolkit/`
   - `git/institucional/RSA-Bitacora-LLM-{TuNombre}/`
+  - `git/ppp/` (carpeta para repositorios de pasantías)
 
 ---
 
@@ -40,7 +42,7 @@ Después de hacer `git pull` en `RSA-Agent-Toolkit`, simplemente di al agente:
 
 > **"sincroniza el toolkit"**
 
-El agente copiará automáticamente todos los archivos actualizados. Funciona igual en W11 y WSL.
+El agente copiará automáticamente todos los archivos y paquetes de skills actualizados. Funciona igual en W11 y WSL.
 
 ---
 
@@ -54,11 +56,16 @@ git/
 │   │   ├── restriccion_sshfs.md
 │   │   └── idioma.md
 │   └── skills/
-│       ├── volcado_bitacora.md
-│       ├── consulta_historica.md
-│       ├── generar_contexto.md
-│       ├── extraer_adr.md
-│       └── sincronizar_toolkit.md
+│       ├── volcado_bitacora/SKILL.md
+│       ├── consulta_historica/SKILL.md
+│       ├── generar_contexto/SKILL.md
+│       ├── extraer_adr/SKILL.md
+│       ├── sincronizar_toolkit/SKILL.md
+│       ├── crear_transicion_tecnica/SKILL.md
+│       ├── planning_guide/SKILL.md
+│       ├── execution_guide/SKILL.md
+│       ├── diagnostico_tecnico/SKILL.md
+│       └── despliegue_release/SKILL.md
 └── AGENTS.md
 ```
 

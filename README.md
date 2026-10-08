@@ -16,12 +16,16 @@ RSA-Agent-Toolkit/
 │   │   ├── restriccion_sshfs.md # Regla: no ejecutar en montajes SSHFS
 │   │   └── idioma.md            # Regla: idioma español
 │   └── skills/
-│       ├── volcado_bitacora.md  # Guardar sesión en bitácora personal
-│       ├── consulta_historica.md# Consultar conocimiento pasado
-│       ├── generar_contexto.md  # Generar documentación de contexto técnico
-│       ├── extraer_adr.md       # Extraer Architecture Decision Records
-│       ├── sincronizar_toolkit.md # Copiar .agents/ y AGENTS.md a git/
-│       └── despliegue_release.md # Asistente interactivo de release y despliegue
+│       ├── volcado_bitacora/SKILL.md    # Guardar sesión en bitácora personal
+│       ├── consulta_historica/SKILL.md  # Consultar conocimiento pasado
+│       ├── generar_contexto/SKILL.md    # Generar documentación de contexto técnico
+│       ├── extraer_adr/SKILL.md         # Extraer Architecture Decision Records
+│       ├── sincronizar_toolkit/SKILL.md # Sincronizar .agents/ y AGENTS.md a git/
+│       ├── crear_transicion_tecnica/SKILL.md # Generar transición en docs/progress/
+│       ├── planning_guide/SKILL.md      # Blueprint de planificación en docs/blueprints/
+│       ├── execution_guide/SKILL.md     # Ejecución determinista de blueprints
+│       ├── diagnostico_tecnico/SKILL.md # Diagnóstico de fallas en docs/analysis/
+│       └── despliegue_release/SKILL.md  # Asistente interactivo de release y despliegue
 ├── plantillas/
 │   ├── AGENTS.md                # Plantilla genérica para proyectos RSA
 │   ├── AGENTS_WSL.md            # Variante para WSL
@@ -84,17 +88,21 @@ git/                              ← Workspace raíz del IDE
 ├── rsa/
 │   ├── RSA-Agent-Toolkit/        ← Este repo (fuente canónica)
 │   ├── RSA-Metodologias/         ← Índice federado, ADRs, guías
+│   ├── RSA-PPP-Toolkit/          ← Gobernanza y memoria técnica de pasantías
 │   └── RSA-Otros-Proyectos/
-└── institucional/
-    └── RSA-Bitacora-LLM-{Nombre}/  ← Bitácoras personales
+├── institucional/
+│   └── RSA-Bitacora-LLM-{Nombre}/  ← Bitácoras personales
+└── ppp/                          ← Repositorios individuales de pasantías (RSA-PPP)
 ```
 
 ---
 
 ## 📋 Repositorios del Exocortex
 
-| Repo | Cuenta | Descripción |
-|------|--------|-------------|
-| `RSA-Agent-Toolkit` | RedSismicaAustro | Este repo — skills y reglas |
-| `RSA-Metodologias` | RedSismicaAustro | Índice federado, ADRs, guías institucionales |
+| Repo | Cuenta / Org | Descripción |
+|------|--------------|-------------|
+| `RSA-Agent-Toolkit` | Red-Sismica-del-Austro | Este repo — skills y reglas transversales |
+| `RSA-Metodologias` | Red-Sismica-del-Austro | Índice federado, ADRs, guías institucionales |
+| `RSA-PPP-Toolkit` | Red-Sismica-del-Austro | Gobernanza PPP, plantillas maestras y catálogo histórico |
 | `RSA-Bitacora-LLM-Milton` | Institucional | Bitácora personal de sesiones de Milton |
+| `ppp-*` | RSA-PPP | Repositorios individuales de prácticas preprofesionales |
