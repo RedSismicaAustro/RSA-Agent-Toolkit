@@ -1,0 +1,121 @@
+# ==============================================================================
+# .gitignore Oficial para Repositorios en RSA-Proyectos
+# ==============================================================================
+
+# Sistema Operativo y Archivos Temporales
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Entornos Virtuales y Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Configuraciones y Secretos Locales
+.env
+*.local.json
+*.local.yaml
+*.local.env
+credentials/
+secrets/
+
+# IDEs y Editores de Código
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# C / C++ Compiladores Nativos
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.out
+*.app
+bin/
+
+# Herramientas Embebidas: MikroC PRO
+*.dci
+*.asm
+*.lst
+*.dic
+*.log
+*.cp
+*.ini
+*.dbg
+*.mcl
+*.bmk
+
+# Herramientas Embebidas: MPLAB X / XC8 / XC16 / XC32
+nbproject/private/
+build/
+dist/
+debug/
+.generated_files/
+
+# Herramientas Embebidas: PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+.clang_complete
+
+# Herramientas EDA: KiCad
+*-save.kicad_pcb
+*-save.kicad_sch
+*.bak
+_autosave-*
+*.kicad_prl
+fp-info-cache
+
+# Datos Masivos y Logs de Producción
+*.log
+logs/
+data/raw_samples/*
+!data/raw_samples/.gitkeep
+data/evidence/*
+!data/evidence/.gitkeep

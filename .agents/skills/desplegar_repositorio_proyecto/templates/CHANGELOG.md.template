@@ -1,0 +1,23 @@
+# Registro de Cambios (Changelog)
+
+Todos los cambios notables en este proyecto se documentarán en este archivo.
+
+El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/),
+y este proyecto se adhiere a [Versionado Semántico (SemVer)](https://semver.org/lang/es/).
+
+---
+
+## [Sin Publicar] - Unreleased
+
+### Añadido
+- Inicialización del repositorio institucional en la organización `RSA-Proyectos`.
+
+---
+
+## [{{INITIAL_VERSION}}] - {{CREATION_DATE}}
+
+### Añadido
+- Andamiaje inicial del repositorio con estructura canónica institucional (`configuration/`, `docs/`, `{{SOURCE_FOLDER}}/`, `data/`).
+- Instrucciones de sistema para agentes de IA con Jerarquía de la Verdad en `AGENTS.md`.
+- Documento `README.md` con arquitectura, especificación de interfaces y puesta en marcha.
+{{CHANGELOG_INITIAL_FEATURES}}

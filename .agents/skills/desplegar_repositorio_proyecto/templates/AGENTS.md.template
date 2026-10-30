@@ -1,0 +1,58 @@
+# AGENTS.md — Instrucciones de Sistema para Agentes de IA
+
+Este archivo contiene el prompt de sistema y las directrices operativas que regulan el comportamiento y el procesamiento de la información por parte de los agentes de Inteligencia Artificial (IA) en el repositorio `{{PROJECT_NAME}}`.
+
+---
+
+## 🚨 Jerarquía de la Verdad (Regla Crítica)
+
+Cuando existan discrepancias o contradicciones entre la documentación técnica, los registros históricos y las bitácoras de sesiones, debes aplicar estrictamente la siguiente **Jerarquía de la Verdad**:
+
+```mermaid
+graph TD
+    A["Nivel 1: ADRs -docs/adr/- <br> Decisiones de Diseño Inmutables"] --> B["Nivel 2: Contextos Técnicos -docs/context/- <br> Arquitectura de Código Actual"]
+    B --> C["Nivel 3: Estado de Desarrollo -docs/blueprints/ y docs/progress/- <br> Planificación y Transición Activa"]
+    C --> D["Nivel 4: Memoria Histórica -Bitácoras de Sesiones- <br> Evolución y Registro de Jornadas"]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#ddf,stroke:#333,stroke-width:1px
+    style D fill:#eee,stroke:#333,stroke-width:1px
+```
+
+### Reglas de Validación de Información:
+1. **Invalidez Histórica:** El Contexto Técnico (`docs/context/`) y los ADRs actuales (`docs/adr/`) **invalidan** cualquier contenido contradictorio que se encuentre en las bitácoras de sesiones históricas o en conversaciones pasadas. Las bitácoras reflejan el estado del sistema en un punto del tiempo histórico, mientras que los contextos técnicos y los ADRs documentan la estructura física y lógica vigente.
+2. **Inmutabilidad de Decisiones:** Un ADR aceptado (`docs/adr/`) es la máxima autoridad de diseño. Si la implementación actual descrita en un contexto técnico contradice un ADR aceptado sin que exista un ADR posterior que lo reemplace, debes reportarlo de inmediato al usuario como una anomalía o deuda técnica.
+
+---
+
+## 🛠️ Directrices Operativas del Agente
+
+1. **Mantenimiento de Contexto:** Cada vez que modifiques, agregues o refactorices un módulo, script o firmware principal, es obligatorio que actualices o crees su correspondiente archivo `.md` en `docs/context/` utilizando la skill `generar_contexto`. El contexto técnico debe mantenerse sincronizado con la realidad del código fuente.
+2. **Rutas y Variables de Entorno:**
+   - Evita rutas absolutas codificadas en duro (hardcoded).
+   - Utiliza rutas relativas a la raíz del repositorio o variables de entorno para configuración y logs.
+{{EXECUTION_RESTRICTIONS}}
+3. **Formato de Commits (No ejecución directa):**
+   - Tienes prohibido ejecutar commits en la terminal de forma autónoma.
+   - Muestra el mensaje de commit sugerido en español y minúsculas usando el formato estándar: `tipo: descripción` (ej. `feat: agregar...`, `fix: corregir...`, `docs: actualizar...`, `refactor: optimizar...`).
+4. **Idioma de Trabajo:** Toda la interacción, documentación interna, explicaciones y registros técnicos deben realizarse en **español**.
+
+---
+
+## 📂 Mapa de Documentación Semántica
+
+Utiliza los siguientes directorios para cargar y analizar la memoria estructural del proyecto:
+
+### 1. Contextos Técnicos (`docs/context/`)
+Documentación modular desacoplada de cada subsistema, script o componente principal:
+{{TECHNICAL_CONTEXTS_LIST}}
+
+### 2. Decisiones de Arquitectura (`docs/adr/`)
+Registros formales de decisiones inmutables de ingeniería:
+* Consultar archivos `ADR-NNN-[titulo].md` documentados en la carpeta `docs/adr/`.
+
+### 3. Planificación y Transición
+* `docs/blueprints/`: Planes de trabajo e implementación generados con `planning_guide`.
+* `docs/progress/`: Documentos de transición técnica entre jornadas generados con `crear_transicion_tecnica`.
+* `docs/analysis/`: Diagnósticos de incidencias o anomalías generados con `diagnostico_tecnico`.

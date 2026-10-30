@@ -1,0 +1,112 @@
+# {{PROJECT_NAME}}
+
+> **Red Sísmica del Austro (RSA) — Universidad de Cuenca**  
+> {{SUBTITLE}}
+
+---
+
+## 📋 Ficha Técnica del Proyecto
+
+| Campo | Detalle |
+| :--- | :--- |
+| **Organización** | [RSA-Proyectos](https://github.com/RSA-Proyectos) |
+| **Repositorio** | `{{PROJECT_NAME}}` |
+| **Estado** | `{{PROJECT_STATUS}}` |
+| **Línea de Ingeniería** | {{ENGINEERING_LINE}} |
+| **Tecnologías Clave** | {{KEY_TECHNOLOGIES}} |
+| **Hardware / Plataforma** | {{HARDWARE_PLATFORM}} |
+| **Tutor / Mantenedor** | Ing. Milton Muñoz (`milton.munozc@ucuenca.edu.ec`) — RSA |
+
+{{PRECEDENT_PROJECT_BLOCK}}
+
+---
+
+## 🎯 Descripción General y Objetivos
+
+{{PROJECT_DESCRIPTION}}
+
+### Objetivos Principales
+{{PROJECT_OBJECTIVES}}
+
+---
+
+## 🏗️ Arquitectura del Sistema y Flujo de Trabajo
+
+```mermaid
+graph TD
+{{MERMAID_ARCHITECTURE_DIAGRAM}}
+```
+
+### Especificación Técnica de Módulos e Interfaces
+* **Interfaces y Protocolos:** {{INTERFACES_AND_PROTOCOLS}}
+* **Almacenamiento y Formatos:** {{STORAGE_AND_FORMATS}}
+
+---
+
+## 📂 Estructura del Repositorio
+
+> [!IMPORTANT]
+> **Estructura Canónica Institucional:** La estructura de carpetas raíz y de documentación técnica (`docs/`) es inmutable y no debe alterarse sin un registro formal de decisión (ADR).
+
+```text
+{{PROJECT_NAME}}/
+├── configuration/             # Archivos de configuración (JSON, YAML, .env.example)
+│
+├── docs/                      # Memoria semántica gobernada por el exocortex
+│   ├── adr/                   # Architecture Decision Records (ADR inmutables)
+│   ├── analysis/              # Diagnósticos técnicos y análisis forenses
+│   ├── blueprints/            # Planes de implementación técnica estructurados
+│   ├── context/               # Documentación desacoplada de cada módulo/script
+│   └── progress/              # Documentos de transición técnica entre jornadas
+│
+├── {{SOURCE_FOLDER}}/                 # Código fuente principal (firmware/, scripts/ o src/)
+│   ├── common/                # Definiciones globales, tipos y encabezados
+│   ├── drivers/               # Controladores de bajo nivel o librerías base
+│   └── tests/                 # Pruebas unitarias y diagnósticos de hardware
+│
+├── data/                      # Evidencias y muestras de prueba
+│   ├── evidence/              # Capturas instrumentales y registros de verificación
+│   └── raw_samples/           # Volcados binarios o datasets de ensayo
+│
+├── AGENTS.md                  # Instrucciones del sistema y Jerarquía de la Verdad para IA
+├── CHANGELOG.md               # Registro histórico de versiones bajo SemVer
+├── README.md                  # Este documento
+└── .gitignore                 # Exclusiones de control de versiones
+```
+
+---
+
+## 🛠️ Requisitos y Puesta en Marcha
+
+### 1. Requisitos Previos e Instrumental
+* **Hardware:** {{REQUIREMENTS_HARDWARE}}
+* **Entorno de Compilación / Ejecución:** {{REQUIREMENTS_ENVIRONMENT}}
+
+### 2. Clonación y Preparación del Entorno
+```bash
+git clone git@github.com-rsa:RSA-Proyectos/{{PROJECT_NAME}}.git
+cd {{PROJECT_NAME}}
+```
+
+{{SETUP_INSTRUCTIONS}}
+
+---
+
+## 🛡️ Políticas de Versionado y Colaboración
+
+1. **Gestión de Versiones (SemVer):** Todas las versiones estables y cambios significativos se registran formalmente en [`CHANGELOG.md`](CHANGELOG.md) siguiendo la especificación [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/).
+2. **Formato de Commits:** Commits atómicos y en minúsculas:
+   - `feat:` Nuevas funcionalidades, módulos o controladores.
+   - `fix:` Correcciones de bugs en código, circuito o scripts.
+   - `docs:` Actualización de documentación, contextos técnicos o esquemas.
+   - `refactor:` Mejoras en la estructura de código sin alterar su comportamiento.
+   - `test:` Pruebas unitarias o experimentales.
+3. **Mantenimiento Asistido con IA:** Los agentes que colaboren en este repositorio deben acatar la **Jerarquía de la Verdad** y directrices especificadas en [`AGENTS.md`](AGENTS.md).
+
+---
+
+## 📞 Contacto y Administración
+
+* **Responsable Técnico:** Ing. Milton Muñoz (`milton.munozc@ucuenca.edu.ec`)  
+* **Organización:** [Red Sísmica del Austro (RSA)](https://github.com/Red-Sismica-del-Austro) — Universidad de Cuenca  
+* **Plataforma de Proyectos:** [RSA-Proyectos](https://github.com/RSA-Proyectos)

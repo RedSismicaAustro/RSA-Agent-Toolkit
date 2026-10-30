@@ -25,7 +25,8 @@ RSA-Agent-Toolkit/
 │       ├── planning_guide/SKILL.md      # Blueprint de planificación en docs/blueprints/
 │       ├── execution_guide/SKILL.md     # Ejecución determinista de blueprints
 │       ├── diagnostico_tecnico/SKILL.md # Diagnóstico de fallas en docs/analysis/
-│       └── despliegue_release/SKILL.md  # Asistente interactivo de release y despliegue
+│       ├── despliegue_release/SKILL.md  # Asistente interactivo de release y despliegue
+│       └── desplegar_repositorio_proyecto/SKILL.md # Inicializar repositorios en RSA-Proyectos
 ├── plantillas/
 │   ├── AGENTS.md                # Plantilla genérica para proyectos RSA
 │   ├── AGENTS_WSL.md            # Variante para WSL
@@ -92,7 +93,8 @@ git/                              ← Workspace raíz del IDE
 │   └── RSA-Otros-Proyectos/
 ├── institucional/
 │   └── RSA-Bitacora-LLM-{Nombre}/  ← Bitácoras personales
-└── ppp/                          ← Repositorios individuales de pasantías (RSA-PPP)
+├── rsa-proyectos/                ← Repositorios de sistemas institucionales (RSA-Proyectos)
+└── rsa-ppp/                      ← Repositorios individuales de pasantías (RSA-PPP)
 ```
 
 ---
@@ -105,4 +107,5 @@ git/                              ← Workspace raíz del IDE
 | `RSA-Metodologias` | Red-Sismica-del-Austro | Índice federado, ADRs, guías institucionales |
 | `RSA-PPP-Toolkit` | Red-Sismica-del-Austro | Gobernanza PPP, plantillas maestras y catálogo histórico |
 | `RSA-Bitacora-LLM-Milton` | Institucional | Bitácora personal de sesiones de Milton |
+| `RSA-*` | RSA-Proyectos | Repositorios de sistemas institucionales y plataformas |
 | `ppp-*` | RSA-PPP | Repositorios individuales de prácticas preprofesionales |

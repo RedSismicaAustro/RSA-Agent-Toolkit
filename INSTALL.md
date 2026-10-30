@@ -12,7 +12,8 @@ Esta guía explica cómo integrar el toolkit en tu workspace para que el agente 
   - `git/rsa/RSA-Metodologias/`
   - `git/rsa/RSA-PPP-Toolkit/`
   - `git/institucional/RSA-Bitacora-LLM-{TuNombre}/`
-  - `git/ppp/` (carpeta para repositorios de pasantías)
+  - `git/rsa-proyectos/` (carpeta para sistemas y proyectos institucionales)
+  - `git/rsa-ppp/` (carpeta para repositorios de pasantías)
 
 ---
 

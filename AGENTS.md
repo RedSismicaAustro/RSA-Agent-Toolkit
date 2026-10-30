@@ -25,7 +25,8 @@ El conocimiento y desarrollo tecnológico está distribuido entre los repositori
 | `RSA-Metodologias` | rsa/ | Índice federado, ADRs y guías institucionales |
 | `RSA-Bitacora-LLM-{Nombre}` | institucional/ | Bitácoras personales de sesiones |
 | `RSA-PPP-Toolkit` | rsa/ | Gobernanza PPP, plantillas maestras, planificaciones históricas y skills de pasantías |
-| `ppp-*` | ppp/ (RSA-PPP) | Repositorios individuales de proyectos de prácticas preprofesionales |
+| `RSA-*` | rsa-proyectos/ (RSA-Proyectos) | Sistemas, instrumentación y plataformas en producción |
+| `ppp-*` | rsa-ppp/ (RSA-PPP) | Repositorios individuales de proyectos de prácticas preprofesionales |
 
 ### Rutas clave en el workspace `git/`
 
@@ -35,7 +36,8 @@ El conocimiento y desarrollo tecnológico está distribuido entre los repositori
 - **ADRs**: `rsa/RSA-Metodologias/decisiones/`
 - **Toolkit PPP**: `rsa/RSA-PPP-Toolkit/`
 - **Planificaciones PPP**: `rsa/RSA-PPP-Toolkit/planificaciones/`
-- **Repositorios de Pasantes**: `ppp/`
+- **Proyectos Institucionales**: `rsa-proyectos/`
+- **Repositorios de Pasantes**: `rsa-ppp/`
 
 ---
 
@@ -56,6 +58,7 @@ Los skills globales están en `.agents/skills/`. Además, skills especializadas 
 | `diagnostico_tecnico` | "genera un diagnóstico técnico de [problema]" o "diagnostica [situación]" | Documenta errores, anomalías o situaciones técnicas en docs/analysis/ con indexación federada |
 | `despliegue_release` | "prepara el release" o "despliega a producción" | Guía interactiva de SemVer, changelog y comandos copy-paste para DEV y SSH |
 | `desplegar_repositorio_ppp` | "despliega el repositorio para [planificacion]" o "inicializa el repositorio de pasantia" | Guía interactiva para crear, configurar e inicializar repositorios de pasantía en RSA-PPP desde RSA-PPP-Toolkit |
+| `desplegar_repositorio_proyecto` | "despliega el repositorio para el proyecto [Nombre]" o "crea el repositorio de produccion" | Guía interactiva para inicializar repositorios en RSA-Proyectos (desde cero o graduando desde un PPP/legacy) |
 
 ---
 
